@@ -74,7 +74,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         <div className={`md:hidden transition-all duration-300 overflow-hidden ${
-          isOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
+          isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         }`}>
           <div className="py-4 space-y-4 bg-card/50 backdrop-blur-lg rounded-lg mt-2 border border-border">
             {navLinks.map((link) => (
@@ -91,7 +91,6 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            
           </div>
         </div>
       </div>
