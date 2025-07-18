@@ -1,4 +1,4 @@
-import { Facebook, Twitter, Linkedin, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Twitter, Linkedin, Instagram, Youtube, Mail, Phone, MapPin, Target } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -39,11 +39,10 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: <Facebook className="w-5 h-5" />, href: "#", label: "Facebook" },
-    { icon: <Twitter className="w-5 h-5" />, href: "#", label: "Twitter" },
-    { icon: <Linkedin className="w-5 h-5" />, href: "#", label: "LinkedIn" },
-    { icon: <Instagram className="w-5 h-5" />, href: "#", label: "Instagram" },
-    { icon: <Youtube className="w-5 h-5" />, href: "#", label: "YouTube" }
+   
+    { icon: <Linkedin className="w-5 h-5" />, href: "https://www.linkedin.com/company/spyder-academyllp/", label: "LinkedIn" },
+    { icon: <Instagram className="w-5 h-5" />, href: "https://www.instagram.com/spyder_academy?igsh=NHMzczYwb2oyZ2x0&utm_source=qr", label: "Instagram" },
+   
   ];
 
   return (
@@ -96,6 +95,7 @@ const Footer = () => {
                   <a
                     key={social.label}
                     href={social.href}
+                    target={"_blank"}
                     className="w-10 h-10 rounded-full glass border border-border/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-all duration-300 group"
                     aria-label={social.label}
                   >
