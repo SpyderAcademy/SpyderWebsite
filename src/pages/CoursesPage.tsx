@@ -4,9 +4,15 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Database, Code, Globe, Brain, Cloud, Smartphone } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import CourseDetailsModal from '@/components/CourseDetailsModal';
+import SkillsModal from '@/components/SkillsModal';
 
 const CoursesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedCourse, setSelectedCourse] = useState<any>(null);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [isSkillsModalOpen, setIsSkillsModalOpen] = useState(false);
+  const [skillsModalData, setSkillsModalData] = useState<{skills: string[], courseTitle: string}>({ skills: [], courseTitle: '' });
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1000);
@@ -81,6 +87,16 @@ const CoursesPage = () => {
       skills: ["React Native", "Flutter", "iOS", "Android", "Firebase", "App Store"]
     }
   ];
+
+  const handleLearnMore = (course: any) => {
+    setSelectedCourse(course);
+    setIsDetailsModalOpen(true);
+  };
+
+  const handleShowAllSkills = (skills: string[], courseTitle: string) => {
+    setSkillsModalData({ skills, courseTitle });
+    setIsSkillsModalOpen(true);
+  };
 
   if (isLoading) {
     return (
@@ -163,19 +179,26 @@ const CoursesPage = () => {
                   <h4 className="text-sm font-semibold mb-2">Key Skills:</h4>
                   <div className="flex flex-wrap gap-1">
                     {course.skills.slice(0, 3).map((skill, skillIndex) => (
-                      <Badge key={skillIndex} variant="secondary" className="text-xs">
+                      <Badge key={skillIndex} variant="secondary" className="text-xs bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
                         {skill}
                       </Badge>
                     ))}
                     {course.skills.length > 3 && (
-                      <Badge variant="secondary" className="text-xs">
+                      <Badge 
+                        variant="secondary" 
+                        className="text-xs bg-primary/10 text-primary hover:bg-primary/20 transition-colors cursor-pointer"
+                        onClick={() => handleShowAllSkills(course.skills, course.title)}
+                      >
                         +{course.skills.length - 3} more
                       </Badge>
                     )}
                   </div>
                 </div>
 
-                <Button className="w-full btn-premium group">
+                <Button 
+                  className="w-full btn-premium group"
+                  onClick={() => handleLearnMore(course)}
+                >
                   Learn More
                   <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
@@ -207,6 +230,23 @@ const CoursesPage = () => {
           </div>
         </div>
       </section>
+
+      {/* Course Details Modal */}
+      {selectedCourse && (
+        <CourseDetailsModal
+          isOpen={isDetailsModalOpen}
+          onClose={() => setIsDetailsModalOpen(false)}
+          course={selectedCourse}
+        />
+      )}
+
+      {/* Skills Modal */}
+      <SkillsModal
+        isOpen={isSkillsModalOpen}
+        onClose={() => setIsSkillsModalOpen(false)}
+        skills={skillsModalData.skills}
+        courseTitle={skillsModalData.courseTitle}
+      />
 
       <Footer />
     </div>
