@@ -21,7 +21,16 @@ const AchievementsPage = () => {
   }, []);
 
   if (isLoading) {
-    return <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center">
+          <div className="text-4xl font-orbitron font-bold text-gradient animate-glow mb-4">
+            Loading Achivements...
+          </div>
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
+        </div>
+      </div>
+    );
   }
 
   return (
