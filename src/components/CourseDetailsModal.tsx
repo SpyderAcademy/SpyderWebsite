@@ -20,6 +20,30 @@ interface CourseDetailsModalProps {
 }
 
 const CourseDetailsModal = ({ isOpen, onClose, course }: CourseDetailsModalProps) => {
+  const handleEnrollNow = () => {
+    const courseDetails = `
+🎓 *Course Enrollment Request*
+
+📚 *Course:* ${course.title}
+📝 *Description:* ${course.description}
+⏱️ *Duration:* ${course.duration}
+📊 *Level:* ${course.level}
+🏷️ *Category:* ${course.category}
+
+💡 *Key Skills:*
+${course.skills.map((skill: string) => `• ${skill}`).join('\n')}
+
+📋 *Course Modules:*
+${course.modules.map((module: string) => `• ${module}`).join('\n')}
+
+Please provide me with more details about enrollment process and pricing.
+    `;
+
+    const phoneNumber = "917871801331"; // Indian number format
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(courseDetails.trim())}`;
+    
+    window.open(whatsappUrl, '_blank');
+  };
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-card/95 backdrop-blur-lg border-primary/20">
@@ -105,7 +129,7 @@ const CourseDetailsModal = ({ isOpen, onClose, course }: CourseDetailsModalProps
                 Join thousands of students who have transformed their careers with this course.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <Button className="btn-premium flex-1">
+                <Button className="btn-premium flex-1" onClick={handleEnrollNow}>
                   Enroll Now
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
